@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Proyecto educativo de mineralogía para explorar posibles minerales a partir de sus propiedades físicas." />
+<title>GeoGuía | Administración</title>
+<style>
+  :root{--ink:#30251e;--muted:#77685e;--paper:#f8f2e9;--panel:#fffdfa;--line:#e5d8ca;--brown:#6f4e37;--brown-soft:#efe0d0;--gold:#b98a58;--shadow:0 12px 32px rgba(66,45,29,.10);--red:#ad4b3d}
+  *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  button,input,select{font:inherit} button{cursor:pointer} a{color:var(--brown)}
+  .topbar{height:70px;background:rgba(255,255,255,.88);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(22px,calc((100% - 1160px)/2));position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.03em}.brand-mark{height:37px;width:37px;border-radius:12px;background:var(--brown);display:grid;place-items:center;color:white}.brand span{font-size:18px}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-top:-3px}
+  .top-note{color:var(--muted);font-size:13px}
+  .hero{background:#563a2b;color:#fff;overflow:hidden;position:relative}.hero:after{content:"";width:440px;height:440px;position:absolute;right:-100px;top:-230px;border:1px solid rgba(255,255,255,.12);border-radius:44% 56% 54% 46%;transform:rotate(28deg);box-shadow:0 0 0 35px rgba(255,255,255,.025),0 0 0 75px rgba(255,255,255,.025)}
+  .hero-inner{max-width:1160px;padding:55px 24px 49px;margin:auto;position:relative;z-index:1}.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#e6cdb1;font-weight:800}.hero h1{font-size:clamp(30px,5vw,51px);letter-spacing:-.045em;line-height:1.06;margin:14px 0 16px;max-width:690px}.hero p{max-width:650px;color:#efe1d2;margin:0;font-size:17px}.hero-badges{display:flex;gap:9px;flex-wrap:wrap;margin-top:23px}.hero-badges span{border:1px solid rgba(255,255,255,.23);background:rgba(255,255,255,.07);border-radius:99px;padding:6px 11px;font-size:12px;color:#f4e8da}
+  main{max-width:1160px;margin:28px auto 60px;padding:0 24px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:22px;align-items:start}.form-column{min-width:0}.side-column{position:sticky;top:92px;display:grid;gap:15px}.section-card,.side-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.section-card{padding:25px;margin-bottom:18px}.section-head{display:flex;gap:13px;align-items:flex-start;margin-bottom:20px}.step{width:35px;height:35px;border-radius:12px;background:var(--brown-soft);color:var(--brown);font-weight:850;display:grid;place-items:center;flex:0 0 auto}.section-head h2{font-size:20px;letter-spacing:-.025em;margin:1px 0 4px}.section-head p{color:var(--muted);font-size:13px;margin:0;max-width:650px}.req{color:var(--red);font-weight:800}.field{margin-bottom:19px}.field:last-child{margin-bottom:0}.field label.field-label{display:block;font-weight:750;font-size:14px;margin-bottom:8px}.hint{font-size:12px;color:var(--muted);margin:5px 0 0}.select, .text-input{width:100%;border:1px solid #ddcdbb;background:#fff;padding:11px 12px;border-radius:10px;color:var(--ink);outline:none}.select:focus,.text-input:focus{border-color:#9a7355;box-shadow:0 0 0 3px rgba(111,78,55,.12)}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+  .color-grid{display:flex;flex-wrap:wrap;gap:8px}.color-option{position:relative}.color-option input{position:absolute;opacity:0;pointer-events:none}.color-option label{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:#fff;font-size:13px;cursor:pointer}.color-option label:before{content:"";display:block;height:15px;width:15px;border-radius:50%;background:var(--swatch,#ccc);border:1px solid rgba(0,0,0,.12)}.color-option input:checked+label{border-color:var(--brown);background:#f4e8da;box-shadow:0 0 0 1px var(--brown);color:var(--brown);font-weight:750}.color-option input:focus-visible+label{outline:3px solid #c8a987}
+  .luster-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}.luster-card{position:relative;display:block;border:1px solid var(--line);border-radius:13px;overflow:hidden;cursor:pointer;background:#fff;transition:transform .15s,border-color .15s,box-shadow .15s}.luster-card:hover{transform:translateY(-2px);box-shadow:0 7px 15px rgba(67,45,28,.10)}.luster-card input{position:absolute;opacity:0}.luster-card:has(input:checked){border:2px solid var(--brown);box-shadow:0 0 0 2px rgba(111,78,55,.12)}.luster-card:has(input:checked) .luster-text{background:#f4e8da}.luster-img{height:108px;position:relative;background:linear-gradient(135deg,#dfd0bd,#76604a);overflow:hidden}.luster-img img{width:100%;height:100%;object-fit:cover;display:block}.luster-img .photo-fallback{display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:35px;color:rgba(255,255,255,.88);text-shadow:0 2px 10px #222;background:linear-gradient(145deg,#d2bea7,#765a43)}.luster-img.bright{background:radial-gradient(ellipse at 30% 20%,#fff7c2,#d2a246 30%,#6d552b 67%,#252a24)}.luster-img.glass{background:linear-gradient(120deg,#f5eee5,#b6a58f 45%,#fffaf1 48%,#9c8771 70%,#f7f1e8)}.luster-img.pearl{background:linear-gradient(125deg,#e9ded2,#fff6e8 30%,#b6a38f 47%,#fff4e1 61%,#766552)}.luster-img.silky{background:repeating-linear-gradient(105deg,#e7d7c4,#fff9f0 9px,#c6b39d 15px,#f4e8da 23px)}.luster-img.resin{background:radial-gradient(circle at 30% 30%,#f3df65,#c7b52b 30%,#665d24 77%)}.luster-img.dull{background:radial-gradient(circle at 40% 28%,#b2a994,#766f5d 50%,#4e4c42)}.luster-img.greasy{background:radial-gradient(ellipse at 40% 25%,#ffde6c,#b6a13f 35%,#6a6139 65%,#2e3329)}.luster-img.adam{background:linear-gradient(135deg,#f5eee4,#c3ad92 30%,#fff 41%,#d6c2a9 50%,#efe0cd 62%,#8a6c51)}.luster-img .light-streak{position:absolute;inset:0;background:linear-gradient(115deg,transparent 28%,rgba(255,255,255,.42) 34%,transparent 45%);pointer-events:none}.luster-text{padding:9px 9px 10px}.luster-name{font-size:13px;font-weight:800;display:flex;align-items:center;gap:6px}.luster-name .check{display:none;color:var(--brown)}.luster-card:has(input:checked) .check{display:inline}.luster-example{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.35}
+  .test-list{display:grid;gap:10px}.test-row{border:1px solid var(--line);border-radius:13px;padding:13px 14px;display:grid;grid-template-columns:1fr 205px;gap:12px;align-items:center}.test-row strong{display:block;font-size:13px}.test-row small{color:var(--muted);font-size:11px;display:block;margin-top:3px}.test-row select{width:100%;padding:9px 10px;border-radius:9px;border:1px solid #dfd1c2;background:white;font-size:13px}.notice{margin-top:13px;padding:11px 12px;border-radius:10px;background:#fff8e8;color:#73541c;font-size:12px;border:1px solid #f2e2b9}.streak-box{background:#fcf8f2;border:1px solid var(--line);border-radius:13px;padding:15px}.streak-box .field{margin-bottom:12px}.streak-help{display:flex;gap:9px;align-items:flex-start;background:#f4e8da;color:#6b4b35;border-radius:10px;padding:10px 12px;font-size:12px}
+  .radio-inline{display:flex;gap:8px;flex-wrap:wrap}.radio-pill{position:relative}.radio-pill input{position:absolute;opacity:0}.radio-pill label{display:block;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font-size:13px;cursor:pointer;background:white}.radio-pill input:checked+label{border-color:var(--brown);background:var(--brown-soft);color:var(--brown);font-weight:750}.radio-pill input:focus-visible+label{outline:3px solid #c8a987}
+  .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{border:0;border-radius:11px;padding:13px 18px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:9px}.btn-primary{background:var(--brown);color:white;box-shadow:0 6px 13px rgba(111,78,55,.20)}.btn-primary:hover{background:#4b3023}.btn-secondary{background:white;border:1px solid var(--line);color:var(--ink)}.actions .btn-primary{flex:1;min-width:180px}.form-error{display:none;color:#963b30;background:#fff0ed;padding:10px 12px;border:1px solid #f1d1ca;border-radius:10px;font-size:13px;margin-top:13px}
+  .side-card{padding:18px}.side-card h3{margin:0 0 10px;font-size:15px}.side-card p{margin:0;font-size:12px;color:var(--muted)}.mini-progress{height:6px;background:#e9ded0;border-radius:999px;overflow:hidden;margin:12px 0 7px}.mini-progress span{display:block;width:0;height:100%;background:var(--brown);transition:width .2s}.side-list{display:grid;gap:12px;margin-top:14px}.side-list-item{display:flex;align-items:flex-start;gap:9px;color:var(--muted);font-size:12px}.side-list-item span:first-child{width:21px;height:21px;flex:0 0 auto;border:1px solid var(--line);background:#fcf8f2;border-radius:7px;display:grid;place-items:center;font-size:11px;color:var(--brown);font-weight:800}.side-list-item b{display:block;color:var(--ink);font-size:12px}.side-card.highlight{background:#f4e8da;border-color:#e2cfbb}.side-card.highlight p{color:#6d4e38}.side-card.highlight h3{color:#4c3325}
+  #results{scroll-margin-top:90px;display:none;margin-top:24px}.results-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:15px}.results-head h2{margin:0;font-size:27px;letter-spacing:-.04em}.results-head p{margin:5px 0 0;color:var(--muted);font-size:13px}.count-pill{border-radius:99px;background:var(--brown-soft);color:var(--brown);font-size:12px;font-weight:800;padding:7px 10px;white-space:nowrap}.results-notice{background:#fff8e8;border:1px solid #ecd4af;color:#73541c;padding:12px 14px;border-radius:12px;font-size:12px;margin-bottom:15px}.results-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.mineral-result{background:white;border:1px solid var(--line);border-radius:15px;overflow:hidden;display:grid;grid-template-columns:115px 1fr;min-height:150px}.mineral-thumb{background:linear-gradient(135deg,#e6dacc,#79685a);position:relative;min-height:100%;overflow:hidden}.mineral-thumb img{width:100%;height:100%;min-height:150px;object-fit:cover;display:block}.mineral-thumb .thumb-art{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:38px;color:rgba(255,255,255,.95);text-shadow:0 2px 15px #333;background:linear-gradient(145deg,var(--art1,#b7bfae),var(--art2,#596c5b))}.mineral-info{padding:13px;min-width:0}.mineral-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}.mineral-info h3{font-size:16px;margin:0;letter-spacing:-.025em}.formula{font-size:11px;color:var(--muted);margin-top:3px}.score{border-radius:7px;padding:4px 6px;font-size:10px;font-weight:850;background:#f2f0e8;white-space:nowrap;color:#5e594a}.score.high{background:#f3e3d3;color:#704a2d}.score.mid{background:#fff0cf;color:#835b11}.bar{height:4px;background:#e9ded0;border-radius:99px;margin:9px 0 8px;overflow:hidden}.bar span{height:100%;display:block;background:var(--brown);border-radius:99px}.match-line{font-size:11px;color:var(--muted);line-height:1.45}.more-btn{border:0;background:transparent;padding:8px 0 0;color:var(--brown);font-weight:800;font-size:11px}.details{display:none;margin-top:9px;padding-top:9px;border-top:1px solid var(--line);font-size:11px;color:#554337}.details.open{display:block}.empty-state{padding:28px;background:white;border:1px dashed #e5d6c5;border-radius:16px;text-align:center;color:var(--muted)}.empty-state h3{margin:0 0 6px;color:var(--ink)}
+  footer{max-width:1160px;margin:0 auto;padding:0 24px 35px;color:var(--muted);font-size:11px}footer .footer-inner{border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}footer a{color:#70513a}
+
+  .top-actions{display:flex;align-items:center;gap:12px}.db-open-btn{border:1px solid #e4d4c2;background:#fff;border-radius:10px;padding:9px 12px;font-size:12px;font-weight:800;color:var(--brown);white-space:nowrap}
+  .db-manager{background:#fff;border:1px solid var(--line);border-radius:18px;margin:24px 0;padding:0;box-shadow:var(--shadow);scroll-margin-top:90px}.db-manager>summary{cursor:pointer;list-style:none;padding:19px 22px;font-weight:850;display:flex;align-items:center;justify-content:space-between;gap:12px}.db-manager>summary::-webkit-details-marker{display:none}.db-manager>summary:after{content:'+';font-size:23px;color:var(--brown)}.db-manager[open]>summary:after{content:'−'}.db-content{padding:0 22px 22px;border-top:1px solid var(--line)}.db-intro{font-size:13px;color:var(--muted);margin:15px 0}.db-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.db-toolbar-actions{display:flex;gap:8px;flex-wrap:wrap}.db-count{font-size:12px;color:var(--muted);font-weight:700}.db-form{background:#fdf9f3;border:1px solid var(--line);border-radius:13px;padding:16px;margin:14px 0 18px}.db-form h3{font-size:16px;margin:0 0 12px}.db-form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.db-form .field{margin:0}.db-form label{display:block;font-size:12px;font-weight:800;margin-bottom:5px}.db-form input,.db-form textarea,.db-form select{width:100%;padding:9px 10px;border:1px solid #ddcdbb;border-radius:9px;background:white;font:inherit;font-size:13px}.db-form textarea{resize:vertical;min-height:70px}.db-form .wide{grid-column:1/-1}.db-form-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.db-message{font-size:13px;padding:10px 12px;border-radius:9px;display:none;margin:10px 0}.db-message.ok{display:block;background:#f4e8da;border:1px solid #e2cfbb;color:#6f4e37}.db-message.error{display:block;background:#fff0ed;border:1px solid #f1d1ca;color:#963b30}.db-list{display:grid;gap:8px}.db-item{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;padding:11px 12px;border:1px solid var(--line);border-radius:11px}.db-item strong{display:block;font-size:13px}.db-item small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.db-item-actions{display:flex;gap:6px}.db-item-actions button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:800;color:var(--brown)}.db-item-actions .delete{color:#a13f35}.db-empty{padding:18px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed var(--line);border-radius:10px}.db-help{font-size:11px;color:var(--muted);line-height:1.5;margin:10px 0 0}  .hidden-file{display:none}
+  .form-config{border:1px solid #e5d7c9;border-radius:14px;padding:16px;background:#fcf8f2;margin:16px 0 20px}.form-config h3{margin:0;font-size:17px}.custom-field-form{border:1px solid var(--line);border-radius:12px;background:#fff;padding:14px;margin:12px 0}.custom-field-form input,.custom-field-form select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;font:inherit;font-size:13px}.check-label{display:flex!important;align-items:center;gap:8px;margin-top:24px!important}.check-label input{width:auto!important}.custom-field-list{display:grid;gap:8px}.custom-field-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff}.custom-field-item strong{font-size:13px;display:block}.custom-field-item small{font-size:11px;color:var(--muted);display:block}.custom-field-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.custom-field-actions button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 8px;font-size:11px;font-weight:800;color:var(--brown)}.custom-field-actions .danger{color:#a13f35}.custom-field-actions label{display:flex!important;gap:4px;align-items:center;font-size:11px!important;margin:0!important}.custom-field-actions input{width:auto!important}.custom-field-editor{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;background:#f6ece2;border-radius:10px;padding:12px}.custom-field-editor h4{grid-column:1/-1;margin:0;font-size:13px}.custom-field-editor label{display:block;font-size:11px;font-weight:800;margin-bottom:5px}.custom-field-editor input{width:100%;padding:9px 10px;border:1px solid #ddcdbb;border-radius:9px;background:#fff;font:inherit;font-size:13px}
+
+  @media(max-width:980px){.layout{grid-template-columns:1fr}.side-column{position:static;grid-template-columns:1fr 1fr;order:-1}.luster-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+  @media(max-width:650px){.topbar{height:auto;min-height:62px;padding:10px 16px}.top-actions{gap:7px}.db-open-btn{padding:8px;font-size:11px}.top-note{display:none}.db-form-grid{grid-template-columns:1fr 1fr}.db-form .wide{grid-column:1/-1}.db-manager>summary{padding:16px}.db-content{padding:0 14px 16px}.db-item{grid-template-columns:1fr}.db-item-actions{justify-content:flex-start}.top-note{display:none}.hero-inner{padding:38px 18px 35px}.hero p{font-size:15px}main{padding:0 13px;margin-top:16px}.section-card{padding:17px;border-radius:15px}.layout{gap:14px}.side-column{grid-template-columns:1fr 1fr;gap:10px}.side-card{padding:13px}.luster-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.luster-img{height:105px}.grid-2{grid-template-columns:1fr;gap:0}.test-row{grid-template-columns:1fr;gap:9px}.test-row select{max-width:none}.results-head{align-items:flex-start;flex-direction:column}.results-grid{grid-template-columns:1fr}.mineral-result{grid-template-columns:100px 1fr}.hero-badges span{font-size:11px}.section-head h2{font-size:18px}}
+  @media(max-width:360px){.side-column{grid-template-columns:1fr}.color-option label{padding:6px 8px}.mineral-result{grid-template-columns:85px 1fr}.mineral-info{padding:10px}}
+
+  /* Vistas separadas: formulario público y administrador */
+  .admin-welcome{display:none;max-width:1160px;margin:28px auto 0;padding:0 24px}
+  .admin-welcome-card{background:#563a2b;color:#fff;padding:25px 28px;border-radius:18px}
+  .admin-welcome-card h1{font-size:clamp(25px,4vw,36px);line-height:1.1;letter-spacing:-.035em;margin:0 0 9px}
+  .admin-welcome-card p{margin:0;color:#efe1d2;max-width:800px;font-size:14px}
+  .user-page #dbManager,.user-page .admin-welcome{display:none!important}
+  .admin-page .hero,.admin-page #mineralForm,.admin-page #results{display:none!important}
+  .admin-page .admin-welcome{display:block}
+  .admin-page #dbManager{display:block;margin:18px 0 35px}
+  .admin-page #dbManager>summary{display:none!important}
+  .admin-page main{margin-top:0}
+  .admin-page .db-content{border-top:0;padding-top:4px}
+  @media(max-width:650px){.admin-welcome{padding:0 13px;margin-top:18px}.admin-welcome-card{padding:20px}}
+
+</style>
+</head>
+<body class="admin-page">
+<header class="topbar">
+  <div class="brand"><div class="brand-mark" aria-hidden="true"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M12 2 21 8 18 19 7 22 2 12 5 5Z" stroke="white" stroke-width="1.5"/><path d="m5 5 7 7 9-4M12 12l-5 10M12 12l6 7" stroke="white" stroke-width="1.2"/></svg></div><div><span>GeoGuía</span><small>Explora minerales</small></div></div>
+  <div class="top-actions"><div class="top-note">Guía educativa de identificación preliminar</div><a class="db-open-btn" id="openDbManager" href="index.html">Volver al formulario</a></div>
+</header>
+
+<section class="admin-welcome"><div class="admin-welcome-card"><h1>Administración de GeoGuía</h1><p>Gestiona el catálogo de minerales y configura los campos del formulario. Los cambios se guardan en este navegador y se reflejan en el formulario público abierto desde este mismo navegador.</p></div></section>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">Laboratorio de mineralogía · versión dinámica</div><h1>¿Qué mineral tienes<br>en tus manos?</h1><p>Describe las propiedades de tu muestra y descubre qué minerales podrían coincidir. No necesitas conocer la escala de Mohs: te guiamos con pruebas sencillas y ejemplos visuales.</p><div class="hero-badges"><span>✓ Brillo con imágenes</span><span>✓ Pruebas de dureza</span><span>✓ Raya obligatoria</span><span>✓ Resultados explicados</span><span>✓ Familia y densidad</span></div></div></section>
+<main>
+<form id="mineralForm" novalidate>
+<div class="layout"><div class="form-column">
+  <section class="section-card" aria-labelledby="color-title">
+    <div class="section-head"><div class="step">01</div><div><h2 id="color-title">Color de la muestra <span class="req">*</span></h2><p>Elige el color que predomina en el mineral. El color por sí solo no basta para identificarlo.</p></div></div>
+    <div class="color-grid" id="colorGrid">
+      <div class="color-option"><input type="radio" name="color" id="c-blanco" value="blanco" required><label for="c-blanco" style="--swatch:#f3e9dc">Blanco</label></div>
+      <div class="color-option"><input type="radio" name="color" id="c-negro" value="negro"><label for="c-negro" style="--swatch:#272927">Negro</label></div>
+      <div class="color-option"><input type="radio" name="color" id="c-gris" value="gris"><label for="c-gris" style="--swatch:#8b918e">Gris</label></div>
+      <div class="color-option"><input type="radio" name="color" id="c-amarillo" value="amarillo"><label for="c-amarillo" style="--swatch:#e6ca39">Amarillo</label></div>
+      <div class="color-option"><input type="radio" name="color" id="c-dorado" value="dorado"><label for="c-dorado" style="--swatch:#bd963e">Dorado</label></div>
+      <div class="color-option"><input type="radio" name="color" id="c-rojo" value="rojo"><label for="c-rojo" style="--swatch:#ab493e">Rojo</label></div>
+      <div class="color-option"><input type="radio" name="color" id="c-marron" value="marrón"><label for="c-marron" style="--swatch:#805943">Marrón</label></div>
+      <div class="color-option"><input type="radio" name="color" id="c-verde" value="verde"><label for="c-verde" style="--swatch:#508354">Verde</label></div>
+      <div class="color-option"><input type="radio" name="color" id="c-azul" value="azul"><label for="c-azul" style="--swatch:#3979b8">Azul</label></div>
+      <div class="color-option"><input type="radio" name="color" id="c-incoloro" value="incoloro"><label for="c-incoloro" style="--swatch:#e4f3f0">Incoloro</label></div>
+      <div class="color-option"><input type="radio" name="color" id="c-rosado" value="rosado"><label for="c-rosado" style="--swatch:#d9a0a8">Rosado</label></div>
+      <div class="color-option"><input type="radio" name="color" id="c-morado" value="morado"><label for="c-morado" style="--swatch:#8465a8">Morado</label></div>
+      <div class="color-option"><input type="radio" name="color" id="c-naranja" value="naranja"><label for="c-naranja" style="--swatch:#dd8b39">Naranja</label></div>
+      <div class="color-option"><input type="radio" name="color" id="c-multicolor" value="multicolor"><label for="c-multicolor" style="--swatch:linear-gradient(135deg,#ba4439 0 25%,#e1bf42 25% 50%,#3979b8 50% 75%,#568759 75%)">Multicolor</label></div>
+    </div>
+  </section>
+
+  <section class="section-card" aria-labelledby="luster-title">
+    <div class="section-head"><div class="step">02</div><div><h2 id="luster-title">Tipo de brillo <span class="req">*</span></h2><p>Compara la superficie de tu muestra con los ejemplos. Elige la opción que más se parezca.</p></div></div>
+    <div class="luster-grid" id="lusterGrid">
+      <label class="luster-card"><input type="radio" name="luster" value="metálico" required><div class="luster-img bright"><img src="https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/media/images/pyrite_0.jpg" alt="Ejemplo de pirita con brillo metálico" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="photo-fallback">✦</div><div class="light-streak"></div></div><div class="luster-text"><div class="luster-name">Metálico <span class="check">✓</span></div><div class="luster-example">Refleja como el metal. Ej.: pirita.</div></div></label>
+      <label class="luster-card"><input type="radio" name="luster" value="vítreo" required><div class="luster-img glass"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Iziko_Mineral_Quartz_Crystal.JPG?width=800" alt="Ejemplo de cuarzo con brillo vítreo" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="photo-fallback">◇</div><div class="light-streak"></div></div><div class="luster-text"><div class="luster-name">Vítreo <span class="check">✓</span></div><div class="luster-example">Como el vidrio. Ej.: cuarzo.</div></div></label>
+      <label class="luster-card"><input type="radio" name="luster" value="nacarado" required><div class="luster-img pearl"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Muscovite_mica.jpg?width=800" alt="Ejemplo de mica con brillo nacarado" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="photo-fallback">❋</div><div class="light-streak"></div></div><div class="luster-text"><div class="luster-name">Nacarado <span class="check">✓</span></div><div class="luster-example">Como el interior de una perla.</div></div></label>
+      <label class="luster-card"><input type="radio" name="luster" value="sedoso" required><div class="luster-img silky"><img src="https://www.geologysuperstore.com/wp-content/uploads/2022/10/gypsum_white.jpg" alt="Ejemplo de yeso fibroso con brillo sedoso" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="photo-fallback">≋</div><div class="light-streak"></div></div><div class="luster-text"><div class="luster-name">Sedoso <span class="check">✓</span></div><div class="luster-example">Reflejos finos como seda. Ej.: yeso fibroso.</div></div></label>
+      <label class="luster-card"><input type="radio" name="luster" value="resinoso" required><div class="luster-img resin"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sphalerite.jpg?width=800" alt="Ejemplo de esfalerita con brillo resinoso" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="photo-fallback">✧</div><div class="light-streak"></div></div><div class="luster-text"><div class="luster-name">Resinoso <span class="check">✓</span></div><div class="luster-example">Parecido a la resina. Ej.: esfalerita.</div></div></label>
+      <label class="luster-card"><input type="radio" name="luster" value="grasoso" required><div class="luster-img greasy"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sulphur_J1.jpg?width=800" alt="Ejemplo de azufre con superficie brillante" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="photo-fallback">◉</div><div class="light-streak"></div></div><div class="luster-text"><div class="luster-name">Grasoso <span class="check">✓</span></div><div class="luster-example">Como si tuviera una película aceitosa.</div></div></label>
+      <label class="luster-card"><input type="radio" name="luster" value="mate o terroso" required><div class="luster-img dull"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hematite_%28GeoDIL_number_-_1382%29.jpg?width=800" alt="Muestra mineral de aspecto apagado" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="photo-fallback">▪</div><div class="light-streak"></div></div><div class="luster-text"><div class="luster-name">Mate o terroso <span class="check">✓</span></div><div class="luster-example">Refleja poca luz; aspecto apagado.</div></div></label>
+      <label class="luster-card"><input type="radio" name="luster" value="adamantino" required><div class="luster-img adam"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Rough_diamond.jpg?width=800" alt="Ejemplo de cristal de diamante con brillo adamantino" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="photo-fallback">◇</div><div class="light-streak"></div></div><div class="luster-text"><div class="luster-name">Adamantino <span class="check">✓</span></div><div class="luster-example">Brillo muy intenso. Ej.: diamante.</div></div></label>
+    </div>
+    <p class="hint">Las imágenes son ejemplos orientativos. La iluminación, la textura y el estado de la superficie pueden cambiar la apariencia.</p>
+  </section>
+
+  <section class="section-card" aria-labelledby="hardness-title">
+    <div class="section-head"><div class="step">03</div><div><h2 id="hardness-title">Pruebas de dureza</h2><p>Selecciona qué ocurrió al probar tu muestra. No necesitas escribir un valor de Mohs. Puedes dejar pruebas como «No probé».</p></div></div>
+    <div class="test-list">
+      <div class="test-row"><div><strong>1. ¿La uña raya el mineral?</strong><small>La uña tiene una dureza aproximada de 2,5 Mohs.</small></div><select name="fingernail" aria-label="Resultado de prueba con la uña"><option value="">No probado</option><option value="scratches">Sí, la uña lo raya</option><option value="no-scratch">No, la uña no lo raya</option></select></div>
+      <div class="test-row"><div><strong>2. ¿Una moneda raya el mineral?</strong><small>Es una referencia aproximada; la composición de la moneda importa.</small></div><select name="coin" aria-label="Resultado de prueba con moneda"><option value="">No probado</option><option value="scratches">Sí, la moneda lo raya</option><option value="no-scratch">No, la moneda no lo raya</option></select></div>
+      <div class="test-row"><div><strong>3. ¿Un clavo de acero raya el mineral?</strong><small>El acero de los clavos puede variar en dureza.</small></div><select name="nail" aria-label="Resultado de prueba con clavo"><option value="">No probado</option><option value="scratches">Sí, el clavo lo raya</option><option value="no-scratch">No, el clavo no lo raya</option></select></div>
+      <div class="test-row"><div><strong>4. ¿El mineral raya el vidrio?</strong><small>El vidrio común tiene una dureza aproximada de 5,5 Mohs.</small></div><select name="glass" aria-label="Resultado de prueba con vidrio"><option value="">No probado</option><option value="scratches">Sí, el mineral raya el vidrio</option><option value="no-scratch">No, el mineral no raya el vidrio</option></select></div>
+    </div>
+    <div class="notice"><strong>Seguridad:</strong> haz las pruebas solo en una pequeña zona de la muestra y con cuidado. No uses objetos afilados cerca de los dedos, no inhales polvo y no hagas pruebas con minerales desconocidos que puedan ser tóxicos. La dureza estimada no será exacta.</div>
+  </section>
+
+  <section class="section-card" aria-labelledby="streak-title">
+    <div class="section-head"><div class="step">04</div><div><h2 id="streak-title">Color de la raya <span class="req">*</span></h2><p>La raya es el color del polvo que deja el mineral al frotarlo sobre una placa de porcelana sin esmaltar. No es la marca que hace el clavo.</p></div></div>
+    <div class="streak-box">
+      <div class="field"><label class="field-label" for="streak">¿Qué color de polvo observaste? <span class="req">*</span></label><select class="select" id="streak" name="streak" required><option value="">Selecciona el color de la raya</option><option value="blanca">Blanca o incolora</option><option value="negra">Negra</option><option value="gris">Gris</option><option value="marrón rojiza">Marrón rojiza o roja</option><option value="marrón">Marrón</option><option value="amarilla">Amarilla</option><option value="verde">Verde</option><option value="azul">Azul</option><option value="otro">Otro color / no coincide con la lista</option></select></div>
+      <div class="field" id="otherStreakWrap" hidden><label class="field-label" for="otherStreak">Describe el color observado</label><input class="text-input" id="otherStreak" name="otherStreak" type="text" placeholder="Ej.: naranja, rojo oscuro..."></div>
+      <div class="streak-help"><span aria-hidden="true">ⓘ</span><span>Si el mineral no deja una marca visible, no asumas automáticamente que la raya es blanca: podría ser demasiado duro para la placa. Selecciona «Otro color» y descríbelo, o realiza la prueba con ayuda del docente.</span></div>
+    </div>
+  </section>
+
+  <section class="section-card" aria-labelledby="extra-title">
+    <div class="section-head"><div class="step">05</div><div><h2 id="extra-title">Otras propiedades <span style="font-size:12px;color:var(--muted);font-weight:500">(opcionales)</span></h2><p>Estos datos pueden ayudar a diferenciar minerales con colores o brillos parecidos.</p></div></div>
+    <div class="grid-2">
+      <div class="field"><label class="field-label" for="transparency">Transparencia</label><select class="select" id="transparency" name="transparency"><option value="">No sé / no observada</option><option value="transparente">Transparente</option><option value="translúcido">Translúcido</option><option value="opaco">Opaco</option></select></div>
+      <div class="field"><label class="field-label" for="magnetism">¿Lo atrae un imán?</label><select class="select" id="magnetism" name="magnetism"><option value="">No probado</option><option value="sí">Sí</option><option value="no">No</option></select></div>
+      <div class="field"><label class="field-label" for="cleavage">Exfoliación</label><select class="select" id="cleavage" name="cleavage"><option value="">No sé / no observada</option><option value="perfecta">Planos lisos y definidos (perfecta)</option><option value="buena">Se separa por planos (buena)</option><option value="pobre">Poco visible o irregular</option><option value="ninguna">No observo planos de exfoliación</option></select></div>
+      <div class="field"><label class="field-label" for="fracture">Fractura</label><select class="select" id="fracture" name="fracture"><option value="">No sé / no observada</option><option value="concoidea">Curva, como una concha</option><option value="irregular">Irregular o desigual</option><option value="astillosa">Astillosa o fibrosa</option><option value="terrosa">Terrosa</option></select></div>
+      <div class="field"><label class="field-label" for="density">Densidad aproximada (g/cm³)</label><input class="text-input" id="density" name="density" type="number" min="0.5" max="25" step="0.01" inputmode="decimal" placeholder="Ej. 2.65"><p class="hint">Opcional. Déjalo vacío si no la conoces. Se calcula como masa ÷ volumen.</p></div>
+    </div>
+    <div id="customFieldsSearch" class="grid-2" hidden></div>
+  </section>
+
+  <div class="actions"><button class="btn btn-primary" type="submit">⌕ Buscar posibles minerales <span aria-hidden="true">→</span></button><button class="btn btn-secondary" type="reset">Limpiar formulario</button></div>
+  <div class="form-error" id="formError" role="alert"></div>
+</div>
+
+<aside class="side-column" aria-label="Guía de uso">
+  <div class="side-card"><h3>Tu ficha de observación</h3><p>Completa los datos básicos para habilitar una búsqueda orientativa.</p><div class="mini-progress"><span id="progressBar"></span></div><p id="progressText">0 de 3 datos principales</p><div class="side-list"><div class="side-list-item"><span>1</span><div><b>Color</b>Selecciona el color predominante.</div></div><div class="side-list-item"><span>2</span><div><b>Brillo</b>Elige el ejemplo visual.</div></div><div class="side-list-item"><span>3</span><div><b>Raya</b>Indica el color del polvo.</div></div></div></div>
+  <div class="side-card highlight"><h3>Importante</h3><p>Los resultados son posibles candidatos, no una identificación definitiva. En minerales reales puede haber variaciones de color, brillo y raya.</p></div>
+</aside></div>
+</form>
+<section id="results" aria-live="polite"><div class="results-head"><div><h2>Posibles minerales</h2><p id="resultsSubtitle">Comparación de propiedades observadas con la base de datos educativa.</p></div><span class="count-pill" id="resultCount">0 resultados</span></div><div id="resultsNotice"></div><div class="results-grid" id="resultsGrid"></div></section>
+
+<details class="db-manager" id="dbManager" open>
+  <summary>Panel de administración: minerales y formulario</summary>
+  <div class="db-content">
+    <p class="db-intro">Los resultados se calculan dinámicamente comparando el formulario con esta base. Aquí puedes administrar minerales, definir sus familias y densidades, y configurar campos adicionales del formulario. GeoGuía utiliza 9 grupos mineralógicos prácticos; algunas clases químicas relacionadas se agrupan en una misma categoría. Los cambios se guardan en este navegador.</p>
+
+    <section class="form-config" aria-labelledby="formConfigTitle">
+      <h3 id="formConfigTitle">Configuración del formulario</h3>
+      <p class="db-intro">Agrega campos opcionales de tipo lista para capturar nuevas propiedades (por ejemplo, hábito cristalino). Puedes definir sus opciones, hacerlos obligatorios, desactivarlos o eliminarlos. Para que un campo influya en la búsqueda, completa también sus valores en cada mineral.</p>
+      <form id="customFieldForm" class="custom-field-form">
+        <div class="db-form-grid">
+          <div class="field"><label for="customFieldLabel">Nombre del campo *</label><input id="customFieldLabel" required maxlength="60" placeholder="Ej. Hábito cristalino"></div>
+          <div class="field wide"><label for="customFieldOptions">Opciones separadas por coma * (mínimo 2)</label><input id="customFieldOptions" required placeholder="prismático, cúbico, fibroso, granular"></div>
+          <div class="field"><label for="customFieldWeight">Importancia en coincidencia</label><select id="customFieldWeight"><option value="1">Baja</option><option value="2" selected>Media</option><option value="3">Alta</option><option value="4">Muy alta</option></select></div>
+          <div class="field"><label class="check-label"><input type="checkbox" id="customFieldRequired"> Obligatorio para buscar</label></div>
+        </div>
+        <div class="db-form-actions"><button type="submit" class="btn btn-primary">Agregar campo al formulario</button></div>
+      </form>
+      <div id="customFieldList" class="custom-field-list"></div>
+      <p class="db-help">Los campos esenciales de color, brillo y raya se mantienen como base del identificador. La configuración se guarda en este navegador; el panel no es una autenticación segura y aún no comparte cambios entre usuarios.</p>
+    </section>
+
+    <div class="db-toolbar">
+      <span class="db-count" id="dbCount">Cargando minerales…</span>
+      <div class="db-toolbar-actions">
+        <button type="button" class="btn btn-secondary" id="exportMinerals">Exportar base JSON</button>
+        <label class="btn btn-secondary" for="importMineralsFile">Importar base JSON</label>
+        <input class="hidden-file" id="importMineralsFile" type="file" accept="application/json,.json">
+      </div>
+    </div>
+    <form class="db-form" id="mineralEditorForm">
+      <h3 id="dbFormTitle">Añadir un mineral</h3>
+      <input type="hidden" id="dbOriginalName">
+      <div class="db-form-grid">
+        <div class="field"><label for="dbName">Nombre del mineral *</label><input id="dbName" required maxlength="100" placeholder="Ej. Crisocola"></div>
+        <div class="field"><label for="dbFormula">Fórmula química o grupo</label><input id="dbFormula" placeholder="Ej. Cu₂H₂Si₂O₅(OH)₄"></div>
+        <div class="field"><label for="dbFamily">Familia mineralógica *</label><select id="dbFamily" required><option value="" disabled selected>Selecciona una de las 9 familias</option><option>Elementos nativos</option><option>Sulfuros y sulfosales</option><option>Óxidos e hidróxidos</option><option>Haluros</option><option>Carbonatos, nitratos y boratos</option><option>Sulfatos, cromatos, molibdatos y wolframatos</option><option>Fosfatos, arseniatos y vanadatos</option><option>Silicatos</option><option>Compuestos orgánicos</option></select></div>
+        <div class="field"><label for="dbDensityMin">Densidad mínima (g/cm³)</label><input id="dbDensityMin" type="number" min="0.5" max="25" step="0.01" placeholder="Ej. 2.65"></div>
+        <div class="field"><label for="dbDensityMax">Densidad máxima (g/cm³)</label><input id="dbDensityMax" type="number" min="0.5" max="25" step="0.01" placeholder="Ej. 2.70"></div>
+        <div class="field"><label for="dbHardMin">Dureza mínima (Mohs) *</label><input id="dbHardMin" type="number" min="0" max="10" step="0.5" required value="3"></div>
+        <div class="field"><label for="dbHardMax">Dureza máxima (Mohs) *</label><input id="dbHardMax" type="number" min="0" max="10" step="0.5" required value="4"></div>
+        <div class="field"><label for="dbMagnetic">Magnetismo</label><select id="dbMagnetic"><option value="no">No atraído por imán</option><option value="sí">Atraído por imán</option><option value="variable">Variable / depende de la muestra</option></select></div>
+        <div class="field"><label for="dbGlyph">Símbolo visual</label><input id="dbGlyph" maxlength="8" value="◇" placeholder="◇"></div>
+        <div class="field"><label for="dbColors">Colores (separados por coma) *</label><input id="dbColors" required placeholder="verde, azul, marrón"></div>
+        <div class="field"><label for="dbLusters">Brillos (separados por coma) *</label><input id="dbLusters" required placeholder="vítreo, sedoso"></div>
+        <div class="field"><label for="dbStreaks">Colores de raya (separados por coma) *</label><input id="dbStreaks" required placeholder="blanca, verde"></div>
+        <div class="field"><label for="dbTransparency">Transparencia (separada por coma)</label><input id="dbTransparency" placeholder="opaco, translúcido"></div>
+        <div class="field"><label for="dbCleavage">Exfoliación (separada por coma)</label><input id="dbCleavage" placeholder="buena, perfecta, pobre, ninguna"></div>
+        <div class="field"><label for="dbFracture">Fractura (separada por coma)</label><input id="dbFracture" placeholder="irregular, concoidea"></div>
+        <div class="field wide" id="dbCustomFieldsEditor"></div>
+        <div class="field wide"><label for="dbDescription">Descripción breve *</label><textarea id="dbDescription" required placeholder="Describe rasgos útiles para diferenciarlo..."></textarea></div>
+        <div class="field wide"><label for="dbImage">URL de fotografía (opcional)</label><input id="dbImage" type="url" placeholder="https://..."></div>
+      </div>
+      <div class="db-form-actions"><button type="submit" class="btn btn-primary" id="saveMineralBtn">Guardar mineral</button><button type="button" class="btn btn-secondary" id="cancelMineralEdit" hidden>Cancelar edición</button></div>
+      <p class="db-help">En las listas, escribe los valores en minúscula y separados por comas. Usa los mismos términos del formulario para que la comparación sea más precisa: blanco, verde, metálico, vítreo, blanca, negra, etc.</p>
+    </form>
+    <div class="db-message" id="dbMessage" role="status"></div>
+    <div class="db-list" id="dbMineralList"></div>
+    <p class="db-help">La base se guarda solo en este navegador/dispositivo. Usa «Exportar base JSON» para llevarla a otro equipo o crear una copia de seguridad. Para compartir datos entre varios usuarios se necesitaría conectar la página a una base de datos en un servidor.</p>
+  </div>
+</details>
+
+</main>
+<footer><div class="footer-inner"><div><strong>GeoGuía · Prototipo educativo</strong><br>Resultados calculados desde un catálogo editable por el usuario; datos orientativos que deben revisarse con bibliografía mineralógica.</div><div><strong>Fuentes de imágenes de ejemplo</strong><br><a href="https://www.usgs.gov/media/images/pyrite-crystal" target="_blank" rel="noopener">USGS – pirita (dominio público)</a> · <a href="https://commons.wikimedia.org/wiki/File:Iziko_Mineral_Quartz_Crystal.JPG" target="_blank" rel="noopener">Quartz / Wikimedia Commons</a> · <a href="https://commons.wikimedia.org/wiki/File:Muscovite_mica.jpg" target="_blank" rel="noopener">Muscovita / Wikimedia Commons</a> · <a href="https://www.geologysuperstore.com/shop/product/gypsum-satin-spar" target="_blank" rel="noopener">Yeso fibroso / Geology Superstore</a> · <a href="https://commons.wikimedia.org/wiki/File:Sphalerite.jpg" target="_blank" rel="noopener">Esfalerita / Wikimedia Commons</a> · <a href="https://commons.wikimedia.org/wiki/File:Sulphur_J1.jpg" target="_blank" rel="noopener">Azufre / Wikimedia Commons (CC BY-SA 4.0)</a> · <a href="https://commons.wikimedia.org/wiki/File:Rough_diamond.jpg" target="_blank" rel="noopener">Diamante / Wikimedia Commons (dominio público)</a> · <a href="https://commons.wikimedia.org/wiki/File:Hematite_(GeoDIL_number_-_1382).jpg" target="_blank" rel="noopener">Hematita / Wikimedia Commons (CC0)</a></div></div></footer>
+<script src="minerales.js"></script>
+<script>
+(() => {
+  const $ = (s, root=document) => root.querySelector(s);
+  const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+  const form = $('#mineralForm');
+  const errorBox = $('#formError');
+  const resultSection = $('#results');
+  const otherStreakWrap = $('#otherStreakWrap');
+  const otherStreak = $('#otherStreak');
+
+  const DB_STORAGE_KEY = 'geoguia_mineral_database_v2';
+  const FORM_FIELDS_STORAGE_KEY = 'geoguia_custom_form_fields_v1';
+  const dbEditor = $('#mineralEditorForm');
+  let editingMineralName = null;
+  let formFields = loadFormFields();
+
+  function loadFormFields(){
+    try {
+      const parsed=JSON.parse(localStorage.getItem(FORM_FIELDS_STORAGE_KEY)||'[]');
+      if(!Array.isArray(parsed)) return [];
+      return parsed.filter(f=>f && typeof f.key==='string' && typeof f.label==='string' && Array.isArray(f.options))
+        .map(f=>({key:f.key,label:f.label,options:f.options.map(String).filter(Boolean),required:!!f.required,weight:Math.max(1,Math.min(4,Number(f.weight)||2)),active:f.active!==false}));
+    } catch(err){ console.warn('No se pudo leer la configuración de campos.',err); return []; }
+  }
+  function persistFormFields(next,message='Configuración del formulario actualizada.'){
+    formFields=next;
+    try { localStorage.setItem(FORM_FIELDS_STORAGE_KEY,JSON.stringify(formFields)); }
+    catch(err){ showDbMessage('No se pudo guardar la configuración en este navegador. Exporta tus datos con frecuencia.','error'); }
+    renderCustomFormFields();
+    renderCustomFieldList();
+    renderCustomMineralEditorFields(editingMineralName ? minerals.find(m=>m.name===editingMineralName) : null);
+    showDbMessage(message,'ok');
+  }
+
+  // GeoGuía uses a nine-group practical classification. Aliases from earlier versions
+  // are normalized so existing local catalogues remain compatible after the update.
+  function canonicalFamily(raw){
+    const key=String(raw||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ');
+    const groups={
+      'elementos nativos':'Elementos nativos',
+      'sulfuros':'Sulfuros y sulfosales',
+      'sulfosales':'Sulfuros y sulfosales',
+      'sulfuros y sulfosales':'Sulfuros y sulfosales',
+      'oxidos e hidroxidos':'Óxidos e hidróxidos',
+      'haluros':'Haluros',
+      'carbonatos':'Carbonatos, nitratos y boratos',
+      'nitratos':'Carbonatos, nitratos y boratos',
+      'boratos':'Carbonatos, nitratos y boratos',
+      'carbonatos, nitratos y boratos':'Carbonatos, nitratos y boratos',
+      'sulfatos':'Sulfatos, cromatos, molibdatos y wolframatos',
+      'cromatos':'Sulfatos, cromatos, molibdatos y wolframatos',
+      'molibdatos':'Sulfatos, cromatos, molibdatos y wolframatos',
+      'wolframatos':'Sulfatos, cromatos, molibdatos y wolframatos',
+      'volframatos':'Sulfatos, cromatos, molibdatos y wolframatos',
+      'sulfatos, cromatos, molibdatos y wolframatos':'Sulfatos, cromatos, molibdatos y wolframatos',
+      'fosfatos':'Fosfatos, arseniatos y vanadatos',
+      'arseniatos':'Fosfatos, arseniatos y vanadatos',
+      'vanadatos':'Fosfatos, arseniatos y vanadatos',
+      'fosfatos, arseniatos y vanadatos':'Fosfatos, arseniatos y vanadatos',
+      'silicatos':'Silicatos',
+      'compuestos organicos':'Compuestos orgánicos'
+    };
+    return groups[key] || 'Sin clasificar';
+  }
+
+  function loadMinerals(){
+    const seed = Array.isArray(window.MINERAL_SEED) ? JSON.parse(JSON.stringify(window.MINERAL_SEED)) : [];
+    try {
+      const saved = localStorage.getItem(DB_STORAGE_KEY);
+      if(saved){
+        const parsed = JSON.parse(saved);
+        if(Array.isArray(parsed)){
+          const migrated=parsed.map(m=>{
+            const base=seed.find(s=>String(s.name||'').trim().toLocaleLowerCase()===String(m.name||'').trim().toLocaleLowerCase())||{};
+            return {...base,...m,family:canonicalFamily(m.family||base.family),density:Object.prototype.hasOwnProperty.call(m,'density')?m.density:(base.density||null),customProperties:m.customProperties||{}};
+          });
+          try { localStorage.setItem(DB_STORAGE_KEY,JSON.stringify(migrated)); } catch(err) { /* se mantiene la copia en memoria */ }
+          return migrated;
+        }
+      }
+    } catch(err) { console.warn('No fue posible leer la base local; se usará el catálogo inicial.', err); }
+    try { localStorage.setItem(DB_STORAGE_KEY, JSON.stringify(seed)); } catch(err) { console.warn('No se pudo guardar una copia local del catálogo.', err); }
+    return seed;
+  }
+  function persistMinerals(next, message='Base de minerales actualizada.'){
+    minerals = next;
+    try { localStorage.setItem(DB_STORAGE_KEY, JSON.stringify(minerals)); }
+    catch(err) { showDbMessage('No se pudo guardar en el navegador. Exporta la base JSON para no perder los cambios.', 'error'); }
+    renderDbList();
+    showDbMessage(message, 'ok');
+  }
+  function showDbMessage(message, kind){
+    const box = $('#dbMessage'); if(!box) return;
+    box.textContent = message; box.className = 'db-message ' + kind;
+  }
+  function csvValues(value){ return value.split(',').map(s=>s.trim()).filter(Boolean); }
+  function joinValues(values){ return Array.isArray(values) ? values.join(', ') : ''; }
+  function fillMineralEditor(m){
+    editingMineralName = m.name;
+    $('#dbOriginalName').value = m.name;
+    $('#dbName').value = m.name || '';
+    $('#dbFormula').value = m.formula || '';
+    $('#dbFamily').value = canonicalFamily(m.family) === 'Sin clasificar' ? '' : canonicalFamily(m.family);
+    $('#dbDensityMin').value = Array.isArray(m.density) ? m.density[0] : '';
+    $('#dbDensityMax').value = Array.isArray(m.density) ? m.density[1] : '';
+    $('#dbHardMin').value = m.hardness?.[0] ?? 0;
+    $('#dbHardMax').value = m.hardness?.[1] ?? m.hardness?.[0] ?? 0;
+    $('#dbMagnetic').value = ['sí','no','variable'].includes(m.magnetic) ? m.magnetic : 'no';
+    $('#dbGlyph').value = m.glyph || '◇';
+    $('#dbColors').value = joinValues(m.colors);
+    $('#dbLusters').value = joinValues(m.lusters);
+    $('#dbStreaks').value = joinValues(m.streaks);
+    $('#dbTransparency').value = joinValues(m.transparency);
+    $('#dbCleavage').value = joinValues(m.cleavage);
+    $('#dbFracture').value = joinValues(m.fracture);
+    $('#dbDescription').value = m.description || '';
+    $('#dbImage').value = m.img || '';
+    renderCustomMineralEditorFields(m);
+    $('#dbFormTitle').textContent = 'Editar mineral: ' + m.name;
+    $('#saveMineralBtn').textContent = 'Guardar cambios';
+    $('#cancelMineralEdit').hidden = false;
+    $('#dbManager').open = true;
+    dbEditor.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  function resetMineralEditor(){
+    editingMineralName = null; dbEditor.reset(); $('#dbOriginalName').value='';
+    $('#dbHardMin').value='3'; $('#dbHardMax').value='4'; $('#dbMagnetic').value='no'; $('#dbGlyph').value='◇';
+    $('#dbFamily').value=''; $('#dbDensityMin').value=''; $('#dbDensityMax').value='';
+    renderCustomMineralEditorFields(null);
+    $('#dbFormTitle').textContent='Añadir un mineral'; $('#saveMineralBtn').textContent='Guardar mineral'; $('#cancelMineralEdit').hidden=true;
+  }
+  function renderCustomFormFields(){
+    const holder=$('#customFieldsSearch'); if(!holder) return;
+    const active=formFields.filter(f=>f.active!==false);
+    holder.hidden=!active.length;
+    holder.innerHTML=active.map(f=>`<div class="field"><label class="field-label" for="custom_${escapeHtml(f.key)}">${escapeHtml(f.label)} ${f.required?'<span class="req">*</span>':''}</label><select class="select" id="custom_${escapeHtml(f.key)}" name="custom_${escapeHtml(f.key)}" ${f.required?'required':''}><option value="">${f.required?'Selecciona una opción':'No sé / no observada'}</option>${f.options.map(o=>`<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join('')}</select></div>`).join('');
+  }
+  function renderCustomFieldList(){
+    const holder=$('#customFieldList'); if(!holder) return;
+    if(!formFields.length){holder.innerHTML='<div class="db-empty">Todavía no hay campos personalizados. Añade uno con el formulario superior.</div>';return;}
+    holder.innerHTML=formFields.map(f=>`<div class="custom-field-item"><div><strong>${escapeHtml(f.label)} ${f.required?'· obligatorio':'· opcional'}</strong><small>Opciones: ${escapeHtml(f.options.join(', '))} · Peso: ${f.weight} · ${f.active===false?'desactivado':'activo'}</small></div><div class="custom-field-actions"><label><input type="checkbox" data-toggle-custom-field="${escapeHtml(f.key)}" ${f.active===false?'':'checked'}> Activo</label><button type="button" class="danger" data-delete-custom-field="${escapeHtml(f.key)}">Eliminar</button></div></div>`).join('');
+  }
+  function renderCustomMineralEditorFields(mineral){
+    const holder=$('#dbCustomFieldsEditor'); if(!holder) return;
+    if(!formFields.length){holder.innerHTML='';return;}
+    const props=mineral?.customProperties||{};
+    holder.innerHTML=`<div class="custom-field-editor"><h4>Valores de los campos personalizados en este mineral</h4>${formFields.map(f=>`<div><label for="dbCustom_${escapeHtml(f.key)}">${escapeHtml(f.label)} (separa varios valores con comas)</label><input id="dbCustom_${escapeHtml(f.key)}" data-mineral-custom-key="${escapeHtml(f.key)}" value="${escapeHtml(joinValues(props[f.key]))}" placeholder="${escapeHtml(f.options.join(', '))}"></div>`).join('')}</div>`;
+  }
+  function renderDbList(){
+    const list = $('#dbMineralList'); if(!list) return;
+    $('#dbCount').textContent = minerals.length + (minerals.length===1?' mineral en la base':' minerales en la base');
+    if(!minerals.length){ list.innerHTML='<div class="db-empty">La base está vacía. Añade un mineral o importa un catálogo JSON.</div>'; return; }
+    list.innerHTML = [...minerals].sort((a,b)=>a.name.localeCompare(b.name,'es')).map(m=>{
+      const key=escapeHtml(m.name);
+      const range=Array.isArray(m.hardness)?`${m.hardness[0]}–${m.hardness[1]}`:'No registrada';
+      const density=Array.isArray(m.density)?`${m.density[0]}–${m.density[1]} g/cm³`:'Sin registrar';
+      return `<div class="db-item"><div><strong>${escapeHtml(m.name)} <span style="font-weight:500;color:#77685e">· ${escapeHtml(m.formula||'Fórmula no registrada')}</span></strong><small>Familia: ${escapeHtml(m.family||'Sin clasificar')} · Mohs ${escapeHtml(range)} · Densidad ${escapeHtml(density)} · Colores: ${escapeHtml(joinValues(m.colors))}</small></div><div class="db-item-actions"><button type="button" data-edit-mineral="${key}">Editar</button><button type="button" class="delete" data-delete-mineral="${key}">Eliminar</button></div></div>`;
+    }).join('');
+  }
+  function normalizeMineralRecord(m){
+    if(!m || typeof m.name!=='string' || !m.name.trim()) throw new Error('Cada mineral necesita un nombre.');
+    if(!Array.isArray(m.hardness) || m.hardness.length!==2 || !m.hardness.every(n=>Number.isFinite(Number(n))) || Number(m.hardness[0])<0 || Number(m.hardness[1])>10 || Number(m.hardness[0])>Number(m.hardness[1])) throw new Error('Dureza inválida en '+m.name+'.');
+    for(const field of ['colors','lusters','streaks']) if(!Array.isArray(m[field]) || !m[field].length) throw new Error('El mineral '+m.name+' necesita valores para '+field+'.');
+    const density=Array.isArray(m.density)&&m.density.length===2&&m.density.every(v=>Number.isFinite(Number(v)))&&Number(m.density[0])>0&&Number(m.density[0])<=Number(m.density[1])?[Number(m.density[0]),Number(m.density[1])]:null;
+    const customProperties={};
+    if(m.customProperties && typeof m.customProperties==='object') for(const [key,value] of Object.entries(m.customProperties)) customProperties[key]=Array.isArray(value)?value.map(String):csvValues(String(value||''));
+    return {...m, name:m.name.trim(), formula:String(m.formula||''), family:canonicalFamily(m.family), density, hardness:[Number(m.hardness[0]),Number(m.hardness[1])], colors:m.colors.map(String), lusters:m.lusters.map(String), streaks:m.streaks.map(String), transparency:Array.isArray(m.transparency)?m.transparency.map(String):[], cleavage:Array.isArray(m.cleavage)?m.cleavage.map(String):[], fracture:Array.isArray(m.fracture)?m.fracture.map(String):[], customProperties, magnetic:String(m.magnetic||'no'), description:String(m.description||''), art:Array.isArray(m.art)?m.art:['#b9c7b7','#586d5d'], glyph:String(m.glyph||'◇')};
+  }
+
+  // El catálogo activo se carga desde el archivo de datos y las modificaciones guardadas en este navegador.
+  let minerals = loadMinerals();
+
+  const colorMap = {'rojo':['roja','marrón rojiza'],'marrón':['marrón','marrón rojiza'],'negro':['negra','gris'],'gris':['gris','negra'],'amarillo':['amarilla','blanca'],'dorado':['amarilla','negra','gris'],'blanco':['blanca'],'incoloro':['blanca'],'rosado':['blanca'],'verde':['verde','blanca'],'azul':['azul','blanca'],'multicolor':['blanca']};
+  const norm = s => (s||'').toString().trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+
+  function getHardnessEvidence(data){
+    let min=0,max=10,used=0;
+    const constraints=[
+      {key:'fingernail',limit:2.5,lower:2.5,upper:2.5,kind:'object'},
+      {key:'coin',limit:3.2,lower:3.0,upper:3.5,kind:'object'},
+      {key:'nail',limit:5.0,lower:4.5,upper:5.5,kind:'object'},
+      {key:'glass',limit:5.5,lower:5.5,upper:5.5,kind:'glass'}
+    ];
+    const details=[];
+    for(const c of constraints){
+      const ans=data[c.key]; if(!ans) continue; used++;
+      if(c.key==='glass'){
+        if(ans==='scratches') min=Math.max(min,5.5); else max=Math.min(max,5.5);
+      } else {
+        if(ans==='scratches') max=Math.min(max,c.upper); else min=Math.max(min,c.lower);
+      }
+      details.push({key:c.key,answer:ans});
+    }
+    return {min,max,used,conflict:min>max,details};
+  }
+  function hardnessDescription(h){
+    if(!h.used) return 'No se hicieron pruebas de dureza.';
+    if(h.conflict) return 'Las pruebas registradas parecen contradictorias; conviene repetirlas con cuidado.';
+    if(h.min===0 && h.max<10) return `Las pruebas sugieren una dureza inferior a aproximadamente ${h.max.toLocaleString('es-PE')} Mohs.`;
+    if(h.min>0 && h.max===10) return `Las pruebas sugieren una dureza superior a aproximadamente ${h.min.toLocaleString('es-PE')} Mohs.`;
+    return `Intervalo orientativo a contrastar: ${h.min.toLocaleString('es-PE')}–${h.max.toLocaleString('es-PE')} Mohs.`;
+  }
+  function scoreMineral(m,d,h){
+    let score=0, max=0, reasons=[];
+    const weights={color:2,luster:3,streak:4,hardness:3,transparency:1,magnetism:1,cleavage:1,fracture:1,density:3};
+    max+=weights.color; if(m.colors.some(c=>norm(c)===norm(d.color)) || (d.color==='multicolor' && m.colors.length>3)){score+=weights.color; reasons.push('color parecido');}
+    max+=weights.luster; if(m.lusters.some(v=>norm(v)===norm(d.luster))){score+=weights.luster; reasons.push('brillo compatible');}
+    if(d.streak!=='otro') {max+=weights.streak; let expected=m.streaks.map(norm); let actual=norm(d.streak); let aliases=(colorMap[d.color]||[]).map(norm); if(expected.includes(actual) || (d.streak==='blanca' && expected.includes('incolora')) || (d.streak==='marrón rojiza' && expected.includes('roja')) || (d.streak==='marrón rojiza' && expected.includes('marron rojiza'))){score+=weights.streak; reasons.push('raya compatible');}}
+    if(h.used && !h.conflict){max+=weights.hardness; if(m.hardness[1]>=h.min && m.hardness[0]<=h.max){score+=weights.hardness; reasons.push('dureza compatible');}}
+    if(d.transparency){max+=weights.transparency;if(m.transparency.some(v=>norm(v)===norm(d.transparency))){score+=weights.transparency;reasons.push('transparencia compatible');}}
+    if(d.magnetism){max+=weights.magnetism;if(norm(m.magnetic)===norm(d.magnetism)){score+=weights.magnetism;reasons.push('magnetismo compatible');}}
+    if(d.cleavage){max+=weights.cleavage;if(m.cleavage.some(v=>norm(v)===norm(d.cleavage)) || (d.cleavage==='ninguna' && m.cleavage.some(v=>norm(v)==='pobre'))){score+=weights.cleavage;reasons.push('exfoliación compatible');}}
+    if(d.fracture){max+=weights.fracture;if(m.fracture.some(v=>norm(v)===norm(d.fracture))){score+=weights.fracture;reasons.push('fractura compatible');}}
+    if(Number.isFinite(d.density) && Array.isArray(m.density) && m.density.length===2){
+      max+=weights.density;
+      if(d.density>=Number(m.density[0])-0.15 && d.density<=Number(m.density[1])+0.15){score+=weights.density;reasons.push('densidad compatible');}
+    }
+    for(const field of formFields.filter(f=>f.active!==false)){
+      const actual=d.custom?.[field.key];
+      const expected=m.customProperties?.[field.key];
+      if(actual && Array.isArray(expected) && expected.length){
+        max+=field.weight;
+        if(expected.some(v=>norm(v)===norm(actual))){score+=field.weight;reasons.push(norm(field.label)+' compatible');}
+      }
+    }
+    const pct=max ? Math.round(score/max*100) : 0;
+    return {score,max,pct,reasons};
+  }
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+  function dataFromForm(){
+    const fd=new FormData(form);
+    const custom={};
+    for(const field of formFields.filter(f=>f.active!==false)) custom[field.key]=fd.get('custom_'+field.key)||'';
+    const densityRaw=fd.get('density');
+    return {color:fd.get('color'),luster:fd.get('luster'),fingernail:fd.get('fingernail'),coin:fd.get('coin'),nail:fd.get('nail'),glass:fd.get('glass'),streak:fd.get('streak'),otherStreak:fd.get('otherStreak'),transparency:fd.get('transparency'),magnetism:fd.get('magnetism'),cleavage:fd.get('cleavage'),fracture:fd.get('fracture'),density:densityRaw!==null&&String(densityRaw).trim()!==''?Number(densityRaw):null,custom};
+  }
+  function renderResults(d){
+    const h=getHardnessEvidence(d);
+    const scored=minerals.map(m=>({m,...scoreMineral(m,d,h)})).sort((a,b)=>b.pct-a.pct || b.score-a.score);
+    const candidates=scored.filter(x=>x.pct>=25).slice(0,3);
+    const output=candidates.length?candidates:scored.slice(0,3);
+    $('#resultsGrid').innerHTML='';
+    $('#resultCount').textContent=`${output.length} ${output.length===1?'candidato':'candidatos'}`;
+    $('#resultsSubtitle').textContent='Ordenados por coincidencia aproximada con las propiedades que ingresaste.';
+    let notes=[];
+    if(h.used){notes.push(hardnessDescription(h));if(h.conflict)notes.push('No se utilizó la dureza para ordenar candidatos porque las observaciones son incompatibles.');}
+    if(d.streak==='otro') notes.push(`La raya personalizada («${d.otherStreak||'sin descripción'}») se registra, pero no se compara de forma automática con los colores de la base inicial.`);
+    notes.push('El porcentaje es una puntuación heurística de esta versión de prueba, no una probabilidad científica de identificación.');
+    $('#resultsNotice').innerHTML=`<div class="results-notice">${notes.map(escapeHtml).join('<br>')}</div>`;
+    for(const x of output){
+      const m=x.m, level=x.pct>=70?'alta':x.pct>=45?'media':'baja';
+      const el=document.createElement('article'); el.className='mineral-result';
+      const thumb=document.createElement('div');thumb.className='mineral-thumb';
+      thumb.innerHTML=`<div class="thumb-art" style="--art1:${m.art?.[0]||'#d2bea7'};--art2:${m.art?.[1]||'#765a43'}">${escapeHtml(m.glyph||'◇')}</div>`;
+      if(m.img){const img=document.createElement('img');img.src=m.img;img.alt=`Imagen de referencia de ${m.name}`;img.loading='lazy';img.onerror=()=>img.remove();thumb.appendChild(img);}
+      const info=document.createElement('div'); info.className='mineral-info';
+      const colorLabel={'alta':'Coincidencia alta','media':'Coincidencia media','baja':'Coincidencia baja'}[level];
+      const detailId='detail-'+norm(m.name).replace(/[^a-z0-9]+/g,'-');
+      const densityLabel=Array.isArray(m.density)?`${m.density[0]}–${m.density[1]} g/cm³`:'No registrada';
+      info.innerHTML=`<div class="mineral-top"><div><h3>${escapeHtml(m.name)}</h3><div class="formula">${escapeHtml(m.formula||'Fórmula no registrada')} · Mohs ${m.hardness[0]}–${m.hardness[1]}</div><div class="formula">Familia: ${escapeHtml(m.family||'Sin clasificar')}</div></div><span class="score ${level==='alta'?'high':level==='media'?'mid':''}">${x.pct}%</span></div><div class="bar"><span style="width:${x.pct}%"></span></div><div class="match-line">${escapeHtml(x.reasons.slice(0,3).join(' · ')||'Coincidencia limitada con los datos disponibles')}</div><button type="button" class="more-btn" aria-expanded="false" aria-controls="${detailId}">Ver propiedades +</button><div class="details" id="${detailId}"><strong>Nivel:</strong> ${colorLabel}.<br><strong>Familia mineralógica:</strong> ${escapeHtml(m.family||'Sin clasificar')}.<br><strong>Densidad de referencia:</strong> ${escapeHtml(densityLabel)}.<br><strong>Descripción:</strong> ${escapeHtml(m.description)}<br><strong>Brillo habitual:</strong> ${escapeHtml(m.lusters.join(', '))}.<br><strong>Raya reportada:</strong> ${escapeHtml(m.streaks.join(', '))}.<br><strong>Advertencia:</strong> confirma estas características con una guía mineralógica o especialista.</div>`;
+      const btn=$('.more-btn',info);btn.addEventListener('click',()=>{const details=$('.details',info);const open=details.classList.toggle('open');btn.setAttribute('aria-expanded',String(open));btn.textContent=open?'Ocultar propiedades −':'Ver propiedades +';});
+      el.append(thumb,info);$('#resultsGrid').appendChild(el);
+    }
+    resultSection.style.display='block';resultSection.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  function updateProgress(){
+    const color=!!$('input[name="color"]:checked'); const luster=!!$('input[name="luster"]:checked'); const streak=!!$('#streak').value; const count=[color,luster,streak].filter(Boolean).length;
+    $('#progressBar').style.width=(count/3*100)+'%';$('#progressText').textContent=`${count} de 3 datos principales`; 
+  }
+  form.addEventListener('change',e=>{
+    if(e.target.name==='streak') {const isOther=e.target.value==='otro';otherStreakWrap.hidden=!isOther;otherStreak.required=isOther;}
+    updateProgress();
+  });
+  form.addEventListener('submit',e=>{
+    e.preventDefault(); errorBox.style.display='none';
+    const d=dataFromForm();
+    const missing=[];if(!d.color)missing.push('color');if(!d.luster)missing.push('tipo de brillo');if(!d.streak)missing.push('color de la raya');if(d.streak==='otro'&&!d.otherStreak.trim())missing.push('descripción de la raya');
+    for(const field of formFields.filter(f=>f.active!==false && f.required)) if(!d.custom[field.key]) missing.push(field.label);
+    const densityInput=$('#density').value.trim();
+    if(densityInput && (!Number.isFinite(d.density)||d.density<0.5||d.density>25)) missing.push('densidad válida entre 0,5 y 25 g/cm³');
+    if(missing.length){errorBox.textContent='Completa o corrige los campos indicados: '+missing.join(', ')+'.';errorBox.style.display='block';errorBox.scrollIntoView({behavior:'smooth',block:'center'});return;}
+    renderResults(d);
+  });
+  form.addEventListener('reset',()=>{setTimeout(()=>{errorBox.style.display='none';resultSection.style.display='none';otherStreakWrap.hidden=true;otherStreak.required=false;updateProgress();},0);});
+
+  $('#customFieldForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const label=$('#customFieldLabel').value.trim();
+    const options=csvValues($('#customFieldOptions').value);
+    if(!label){showDbMessage('Escribe el nombre del campo.','error');return;}
+    if(options.length<2){showDbMessage('Cada campo de lista necesita al menos dos opciones separadas por comas.','error');return;}
+    let key=norm(label).replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'')||'campo_nuevo';
+    const base=key; let suffix=2;
+    while(formFields.some(f=>f.key===key)) key=base+'_'+suffix++;
+    const field={key,label,options,required:$('#customFieldRequired').checked,weight:Number($('#customFieldWeight').value)||2,active:true};
+    persistFormFields([...formFields,field],`Se agregó el campo «${label}» al formulario.`);
+    $('#customFieldForm').reset(); $('#customFieldWeight').value='2';
+  });
+  $('#customFieldList').addEventListener('change',e=>{
+    const key=e.target.dataset.toggleCustomField; if(!key)return;
+    const next=formFields.map(f=>f.key===key?{...f,active:e.target.checked}:f);
+    persistFormFields(next,`Se actualizó la visibilidad del campo «${formFields.find(f=>f.key===key)?.label||key}».`);
+  });
+  $('#customFieldList').addEventListener('click',e=>{
+    const button=e.target.closest('[data-delete-custom-field]'); if(!button)return;
+    const key=button.dataset.deleteCustomField; const field=formFields.find(f=>f.key===key); if(!field)return;
+    if(!confirm(`¿Eliminar el campo «${field.label}» de la configuración del formulario? Sus valores guardados por mineral dejarán de mostrarse en el editor.`))return;
+    persistFormFields(formFields.filter(f=>f.key!==key),`Se eliminó el campo «${field.label}».`);
+  });
+
+  dbEditor.addEventListener('submit', e=>{
+    e.preventDefault();
+    const name=$('#dbName').value.trim();
+    const min=Number($('#dbHardMin').value), max=Number($('#dbHardMax').value);
+    if(!name){ showDbMessage('El nombre del mineral es obligatorio.','error'); return; }
+    if(min>max){ showDbMessage('La dureza mínima no puede ser mayor que la máxima.','error'); return; }
+    const densityMinRaw=$('#dbDensityMin').value.trim(), densityMaxRaw=$('#dbDensityMax').value.trim();
+    if((densityMinRaw && !densityMaxRaw)||(!densityMinRaw && densityMaxRaw)){showDbMessage('Para registrar densidad, completa tanto el mínimo como el máximo.','error');return;}
+    const density=densityMinRaw&&densityMaxRaw?[Number(densityMinRaw),Number(densityMaxRaw)]:null;
+    if(density && (density.some(v=>!Number.isFinite(v)||v<0.5||v>25)||density[0]>density[1])){showDbMessage('Revisa el intervalo de densidad: debe estar entre 0,5 y 25 g/cm³ y el mínimo no puede superar al máximo.','error');return;}
+    const customProperties={...(minerals.find(m=>norm(m.name)===norm(editingMineralName||''))?.customProperties||{})};
+    for(const field of formFields){const input=$('#dbCustom_'+field.key);if(input)customProperties[field.key]=csvValues(input.value);}
+    const record={
+      name, formula:$('#dbFormula').value.trim(), family:canonicalFamily($('#dbFamily').value), density, hardness:[min,max], customProperties,
+      colors:csvValues($('#dbColors').value), lusters:csvValues($('#dbLusters').value), streaks:csvValues($('#dbStreaks').value),
+      transparency:csvValues($('#dbTransparency').value), cleavage:csvValues($('#dbCleavage').value), fracture:csvValues($('#dbFracture').value),
+      magnetic:$('#dbMagnetic').value, description:$('#dbDescription').value.trim(), img:$('#dbImage').value.trim(),
+      art: editingMineralName ? (minerals.find(m=>norm(m.name)===norm(editingMineralName))?.art || ['#b9c7b7','#586d5d']) : ['#b9c7b7','#586d5d'], glyph:$('#dbGlyph').value.trim() || '◇'
+    };
+    try { normalizeMineralRecord(record); } catch(err) { showDbMessage(err.message,'error'); return; }
+    if(!record.colors.length || !record.lusters.length || !record.streaks.length){ showDbMessage('Completa colores, brillos y colores de raya para poder comparar el mineral.','error'); return; }
+    const duplicate=minerals.some(m=>norm(m.name)===norm(name) && norm(m.name)!==norm(editingMineralName||''));
+    if(duplicate){ showDbMessage('Ya existe un mineral con ese nombre. Edítalo desde la lista si quieres corregirlo.','error'); return; }
+    let next=[...minerals];
+    if(editingMineralName){ const idx=next.findIndex(m=>norm(m.name)===norm(editingMineralName)); if(idx>=0) next[idx]=record; else next.push(record); }
+    else next.push(record);
+    persistMinerals(next, editingMineralName ? `Se actualizaron las propiedades de ${name}.` : `Se agregó ${name}; ya participa en las búsquedas.`);
+    resetMineralEditor();
+  });
+  $('#cancelMineralEdit').addEventListener('click', resetMineralEditor);
+  $('#dbMineralList').addEventListener('click', e=>{
+    const editButton=e.target.closest('[data-edit-mineral]');
+    const deleteButton=e.target.closest('[data-delete-mineral]');
+    if(editButton){ const m=minerals.find(x=>x.name===editButton.dataset.editMineral); if(m) fillMineralEditor(m); }
+    if(deleteButton){ const name=deleteButton.dataset.deleteMineral; if(!confirm(`¿Eliminar ${name} de la base de datos?`)) return; persistMinerals(minerals.filter(x=>x.name!==name), `${name} fue eliminado de la base. Los siguientes resultados ya no lo incluirán.`); if(norm(editingMineralName||'')===norm(name)) resetMineralEditor(); }
+  });
+  const openDbManager=$('#openDbManager');
+  if(openDbManager && openDbManager.tagName==='BUTTON') openDbManager.addEventListener('click', ()=>{ $('#dbManager').open=true; $('#dbManager').scrollIntoView({behavior:'smooth',block:'start'}); });
+  $('#exportMinerals').addEventListener('click', ()=>{
+    const blob=new Blob([JSON.stringify(minerals,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='geoguia-minerales.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    showDbMessage('Catálogo exportado en formato JSON.','ok');
+  });
+  $('#importMineralsFile').addEventListener('change', async e=>{
+    const file=e.target.files?.[0]; if(!file) return;
+    try {
+      const parsed=JSON.parse(await file.text());
+      if(!Array.isArray(parsed) || !parsed.length) throw new Error('El archivo debe contener una lista JSON de minerales.');
+      const imported=parsed.map(normalizeMineralRecord);
+      const names=new Set(); for(const m of imported){const key=norm(m.name);if(names.has(key))throw new Error('Hay nombres duplicados en el archivo: '+m.name+'.');names.add(key);}
+      if(!confirm(`Se reemplazará la base actual por ${imported.length} minerales del archivo. ¿Continuar?`)) {e.target.value='';return;}
+      persistMinerals(imported,'Se importaron '+imported.length+' minerales. Los nuevos resultados se calcularán con esta base.'); resetMineralEditor();
+    } catch(err) { showDbMessage('No se pudo importar: '+err.message,'error'); }
+    e.target.value='';
+  });
+  renderDbList();
+  renderCustomFormFields();
+  renderCustomFieldList();
+  renderCustomMineralEditorFields(null);
+  updateProgress();
+})();
+</script>
+</body>
+</html>
