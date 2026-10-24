@@ -1,0 +1,46 @@
+GEOGUIA - IDENTIFICADOR DINAMICO DE MINERALES
+
+ARCHIVOS
+- identificador_minerales.html: interfaz web, panel de administración y algoritmo de coincidencia.
+- minerales.js: catálogo mineralógico inicial, separado de la lógica.
+
+COMO ABRIR
+1. Descomprime el ZIP.
+2. Mantén identificador_minerales.html y minerales.js juntos en la misma carpeta.
+3. Abre identificador_minerales.html con Chrome o Edge.
+4. Requiere internet para cargar las fotografías remotas; los formularios y la lógica principal funcionan localmente.
+
+CAMBIOS DE ESTA VERSION
+- Campo opcional de densidad en g/cm³ con coincidencia por intervalos aproximados.
+- Familia mineralógica registrada para cada mineral inicial y visible en los resultados y en el editor del catálogo.
+- El administrador puede editar/añadir/eliminar minerales, ajustar fórmula, dureza, densidad, familia y propiedades.
+- En “Configuración del formulario” puede agregar campos nuevos de tipo lista, sus opciones, el peso que tendrán en la coincidencia y si son obligatorios; también puede activarlos/desactivarlos o eliminarlos.
+- En cada ficha de mineral se pueden indicar los valores compatibles de los nuevos campos. Si faltan valores en la ficha de un mineral, ese campo no penaliza su puntuación.
+- Importación y exportación JSON para respaldar o migrar el catálogo.
+
+LIMITACIONES IMPORTANTES
+- Los datos de densidad son intervalos típicos orientativos; la composición, las impurezas y el estado de la muestra pueden cambiar el valor.
+- La puntuación no es una probabilidad científica ni confirma una identificación.
+- La configuración se guarda en el navegador/dispositivo actual (localStorage). No hay una cuenta admin real, protección por contraseña ni sincronización multiusuario. Para una web pública se recomienda una API y una base de datos con autenticación y permisos.
+- El catálogo inicial contiene familias y densidades aproximadas para minerales comunes; verifica valores contra bibliografía mineralógica antes de un uso académico formal.
+
+REFERENCIAS DE CONSULTA PARA LOS DATOS INICIALES
+- Servicio Geológico Mexicano, clasificación química de minerales: https://www.sgm.gob.mx/Web/MuseoVirtual/Minerales/Clasificacion-de-los-minerales.html
+- The Geology of Virginia, principales clases minerales y ejemplos: https://geologyva.pages.wm.edu/minerals-rocks-and-fossils/minerals/
+- Chemistry LibreTexts, tabla de densidades/gravedades específicas de minerales: https://chem.libretexts.org/Ancillary_Materials/Exemplars_and_Case_Studies/Exemplars/Geology/Conversion_Factors_and_the_Specific_Gravity_of_Minerals
+Los intervalos incluidos en el catálogo son orientativos y deben verificarse antes de usarlos como datos definitivos.
+
+
+ACTUALIZACIÓN DE FAMILIAS MINERALÓGICAS (V4)
+GeoGuía utiliza exactamente estas 9 categorías en el selector de administración:
+1. Elementos nativos
+2. Sulfuros y sulfosales
+3. Óxidos e hidróxidos
+4. Haluros
+5. Carbonatos, nitratos y boratos
+6. Sulfatos, cromatos, molibdatos y wolframatos
+7. Fosfatos, arseniatos y vanadatos
+8. Silicatos
+9. Compuestos orgánicos
+
+Esta es una agrupación práctica para la aplicación; las clasificaciones mineralógicas también se presentan con otras divisiones según el sistema de referencia. Al abrir esta versión, las familias del catálogo anterior se convierten automáticamente a la categoría correspondiente. Si un mineral importado no coincide con ninguna de las nueve categorías, revísalo y asígnale la familia correcta desde el panel de administración.
