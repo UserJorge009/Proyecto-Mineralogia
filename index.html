@@ -4,14 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="Proyecto educativo de mineralogía para explorar posibles minerales a partir de sus propiedades físicas." />
-<title>GeoGuía | Identificador de minerales</title>
+<title>Maumin</title>
 <style>
   :root{--ink:#30251e;--muted:#77685e;--paper:#f8f2e9;--panel:#fffdfa;--line:#e5d8ca;--brown:#6f4e37;--brown-soft:#efe0d0;--gold:#b98a58;--shadow:0 12px 32px rgba(66,45,29,.10);--red:#ad4b3d}
   *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
   button,input,select{font:inherit} button{cursor:pointer} a{color:var(--brown)}
   .topbar{height:70px;background:rgba(255,255,255,.88);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(22px,calc((100% - 1160px)/2));position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
-  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.03em}.brand-mark{height:37px;width:37px;border-radius:12px;background:var(--brown);display:grid;place-items:center;color:white}.brand span{font-size:18px}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-top:-3px}
-  .top-note{color:var(--muted);font-size:13px}
+
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.03em}.brand-mark{height:48px;width:48px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:transparent}.brand-mark img{width:100%;height:100%;object-fit:contain;display:block}.brand span{font-size:18px;color:#4b5930}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.02em;font-weight:600;margin-top:0}
+
   .hero{background:#563a2b;color:#fff;overflow:hidden;position:relative}.hero:after{content:"";width:440px;height:440px;position:absolute;right:-100px;top:-230px;border:1px solid rgba(255,255,255,.12);border-radius:44% 56% 54% 46%;transform:rotate(28deg);box-shadow:0 0 0 35px rgba(255,255,255,.025),0 0 0 75px rgba(255,255,255,.025)}
   .hero-inner{max-width:1160px;padding:55px 24px 49px;margin:auto;position:relative;z-index:1}.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#e6cdb1;font-weight:800}.hero h1{font-size:clamp(30px,5vw,51px);letter-spacing:-.045em;line-height:1.06;margin:14px 0 16px;max-width:690px}.hero p{max-width:650px;color:#efe1d2;margin:0;font-size:17px}.hero-badges{display:flex;gap:9px;flex-wrap:wrap;margin-top:23px}.hero-badges span{border:1px solid rgba(255,255,255,.23);background:rgba(255,255,255,.07);border-radius:99px;padding:6px 11px;font-size:12px;color:#f4e8da}
   main{max-width:1160px;margin:28px auto 60px;padding:0 24px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:22px;align-items:start}.form-column{min-width:0}.side-column{position:sticky;top:92px;display:grid;gap:15px}.section-card,.side-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.section-card{padding:25px;margin-bottom:18px}.section-head{display:flex;gap:13px;align-items:flex-start;margin-bottom:20px}.step{width:35px;height:35px;border-radius:12px;background:var(--brown-soft);color:var(--brown);font-weight:850;display:grid;place-items:center;flex:0 0 auto}.section-head h2{font-size:20px;letter-spacing:-.025em;margin:1px 0 4px}.section-head p{color:var(--muted);font-size:13px;margin:0;max-width:650px}.req{color:var(--red);font-weight:800}.field{margin-bottom:19px}.field:last-child{margin-bottom:0}.field label.field-label{display:block;font-weight:750;font-size:14px;margin-bottom:8px}.hint{font-size:12px;color:var(--muted);margin:5px 0 0}.select, .text-input{width:100%;border:1px solid #ddcdbb;background:#fff;padding:11px 12px;border-radius:10px;color:var(--ink);outline:none}.select:focus,.text-input:focus{border-color:#9a7355;box-shadow:0 0 0 3px rgba(111,78,55,.12)}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:17px}
@@ -50,8 +51,16 @@
 </head>
 <body class="user-page">
 <header class="topbar">
-  <div class="brand"><div class="brand-mark" aria-hidden="true"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M12 2 21 8 18 19 7 22 2 12 5 5Z" stroke="white" stroke-width="1.5"/><path d="m5 5 7 7 9-4M12 12l-5 10M12 12l6 7" stroke="white" stroke-width="1.2"/></svg></div><div><span>GeoGuía</span><small>Explora minerales</small></div></div>
-  <div class="top-actions"><div class="top-note">Guía educativa de identificación preliminar</div><a class="db-open-btn" id="openDbManager" href="admin.html">Panel de administración</a></div>
+
+<div class="brand">
+  <div class="brand-mark">
+    <img src="logo-maumin.png" alt="Logo de MAUMIN">
+  </div>
+  <div>
+    <span>MAUMIN</span>
+  </div>
+</div>
+<div class="top-actions"><div class="top-note">Guía educativa de identificación preliminar</div><a class="db-open-btn" id="openDbManager" href="admin.html">Panel de administración</a></div>
 </header>
 
 <section class="admin-welcome"><div class="admin-welcome-card"><h1>Administración de GeoGuía</h1><p>Gestiona el catálogo de minerales y configura los campos del formulario. Los cambios se guardan en este navegador y se reflejan en el formulario público abierto desde este mismo navegador.</p></div></section>
